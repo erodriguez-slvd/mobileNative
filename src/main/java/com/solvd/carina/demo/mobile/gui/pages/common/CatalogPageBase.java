@@ -14,5 +14,9 @@ public abstract class CatalogPageBase extends AbstractPage {
     public abstract boolean areProductSortByAscendingPrice();
     public abstract void sortProductsByDescendingName();
     public abstract boolean areProductSortByDescendingName();
+    public abstract void addProductToCart();
+    public abstract void removeProductFromCart();
+    public abstract boolean CartContainsProduct();
+    public abstract boolean isCartEmpty();
 
 }

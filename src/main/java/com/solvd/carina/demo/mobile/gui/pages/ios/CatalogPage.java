@@ -4,6 +4,7 @@ import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
+import com.zebrunner.carina.webdriver.decorator.annotations.Predicate;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -35,6 +36,16 @@ public class CatalogPage extends CatalogPageBase{
     @FindBy(xpath = "**/XCUIElementTypeOther[`label == \"Name (Z to A)\"`]")
     @ClassChain
     private ExtendedWebElement descendingNameBtn;
+    @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"test-ADD TO CART\"`][2]")
+    @ClassChain
+    private ExtendedWebElement addToCartBtn;
+    @FindBy(xpath = "label == \"REMOVE\" AND name == \"test-REMOVE\"")
+    @Predicate
+    private ExtendedWebElement removeFromCartBtn;
+    @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"test-Cart\"`]/XCUIElementTypeOther")
+    @ClassChain
+    private ExtendedWebElement cartIcon;
+
 
     @Override
     public boolean isTitlePresent() {
@@ -69,6 +80,33 @@ public class CatalogPage extends CatalogPageBase{
     @Override
     public boolean areProductSortByDescendingName() {
         if (productTitles.get(0).getText().compareToIgnoreCase(productTitles.get(1).getText())>0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void addProductToCart() {
+        addToCartBtn.click();
+    }
+
+    @Override
+    public void removeProductFromCart() {
+        removeFromCartBtn.click();
+    }
+
+    @Override
+    public boolean CartContainsProduct() {
+//        **/XCUIElementTypeOther[`name == "test-Cart"`]/XCUIElementTypeOther[`name == "1"`]
+//                **/XCUIElementTypeOther[`label == "1"`][5]
+        if (cartIcon.getAttribute("name").length()!=0){
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean isCartEmpty(){
+        if (cartIcon.getAttribute("name")==null){
             return true;
         }
         return false;
