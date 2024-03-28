@@ -97,8 +97,6 @@ public class CatalogPage extends CatalogPageBase{
 
     @Override
     public boolean CartContainsProduct() {
-//        **/XCUIElementTypeOther[`name == "test-Cart"`]/XCUIElementTypeOther[`name == "1"`]
-//                **/XCUIElementTypeOther[`label == "1"`][5]
         if (cartIcon.getAttribute("name").length()!=0){
             return true;
         }
