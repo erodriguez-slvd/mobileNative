@@ -1,8 +1,6 @@
 package com.solvd.carina.demo;
 
-import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.LoginPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
+import com.solvd.carina.demo.mobile.gui.pages.common.*;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.utils.R;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
@@ -18,6 +16,13 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
         Assert.assertTrue(loginPage.isLoginBtnActive());
         CatalogPageBase catalog=loginPage.clickLoginBtn();
         Assert.assertTrue(catalog.isTitlePresent(), "Product Catalog Page is not opened");
+    }
+    @Test(dependsOnMethods = "testLogin", suiteName = "Login Test")
+    public void testLogout(){
+        HeaderPageBase headerPage = initPage(getDriver(), HeaderPageBase.class);
+        headerPage.clickOnMenuIcon();
+        LoginPageBase loginPage = headerPage.clickOnLogout();
+        Assert.assertTrue(loginPage.isLoginBtnActive());
     }
     @Test(dependsOnMethods = "testLogin", suiteName = "Catalog Test")
     public void testGetAllProductsName(){
@@ -49,7 +54,7 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
     public void testRemoveProductFromCart(){
         CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
         catalogPage.removeProductFromCart();
-        catalogPage.isCartEmpty();
+        Assert.assertTrue(catalogPage.isCartEmpty());
     }
     @Test(dependsOnMethods = "testLogin", suiteName = "Product Test")
     public void testGetProductDescription(){
@@ -57,5 +62,10 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
         ProductDetailPageBase productPage = catalogPage.clickOnAProduct();
         productPage.getProductDescription();
     }
-
+    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    public void testContinueShoppingBtn(){
+        HeaderPageBase headerPage = initPage(getDriver(), HeaderPageBase.class);
+        CartPageBase cartPage = headerPage.clickOnCartIcon();
+        cartPage.continueShopping();
+    }
 }
