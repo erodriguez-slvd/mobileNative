@@ -18,5 +18,5 @@ public abstract class CatalogPageBase extends AbstractPage {
     public abstract void removeProductFromCart();
     public abstract boolean CartContainsProduct();
     public abstract boolean isCartEmpty();
-
+    public abstract ProductDetailPageBase clickOnAProduct();
 }

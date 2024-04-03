@@ -1,6 +1,7 @@
 package com.solvd.carina.demo.mobile.gui.pages.ios;
 
 import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
+import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
@@ -108,6 +109,11 @@ public class CatalogPage extends CatalogPageBase{
             return true;
         }
         return false;
+    }
+    @Override
+    public ProductDetailPageBase clickOnAProduct() {
+        productTitles.get(0).click();
+        return initPage(getDriver(), ProductDetailPageBase.class);
     }
 
 }

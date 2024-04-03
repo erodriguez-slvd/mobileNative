@@ -2,6 +2,7 @@ package com.solvd.carina.demo;
 
 import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
 import com.solvd.carina.demo.mobile.gui.pages.common.LoginPageBase;
+import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.utils.R;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
@@ -50,4 +51,11 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
         catalogPage.removeProductFromCart();
         catalogPage.isCartEmpty();
     }
+    @Test(dependsOnMethods = "testLogin", suiteName = "Product Test")
+    public void testGetProductDescription(){
+        CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
+        ProductDetailPageBase productPage = catalogPage.clickOnAProduct();
+        productPage.getProductDescription();
+    }
+
 }
