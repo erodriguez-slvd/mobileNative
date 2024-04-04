@@ -1,20 +1,21 @@
 package com.solvd.carina.demo.mobile.gui.pages.ios;
 
-import com.solvd.carina.demo.mobile.gui.pages.common.CartPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.HeaderPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.LoginPageBase;
+import com.solvd.carina.demo.mobile.gui.pages.common.*;
 import com.zebrunner.carina.utils.factory.DeviceType;
+import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
+import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = HeaderPageBase.class)
-public class HeaderPage extends HeaderPageBase {
+public class HeaderPage extends HeaderPageBase implements IMobileUtils {
     public HeaderPage(WebDriver driver) {
         super(driver);
     }
+    @FindBy(xpath = "//XCUIElementTypeOther[@name='headerContainer']/parent::XCUIElementTypeOther")
+    private HeaderPageBase header;
 
     @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"test-Cart\"`]")
     @ClassChain
@@ -25,11 +26,9 @@ public class HeaderPage extends HeaderPageBase {
     @FindBy(xpath = "**/XCUIElementTypeOther[`label == \"ALL ITEMS\"`]")
     @ClassChain
     private ExtendedWebElement allItemsBtn;
-    @FindBy(xpath = "**/XCUIElementTypeOther[`label == \"DRAWING\"`]")
-    @ClassChain
+    @ExtendedFindBy(iosPredicate = "name == 'test-DRAWING'")
     private ExtendedWebElement drawingBtn;
-    @FindBy(xpath = "**/XCUIElementTypeOther[`label == \"LOGOUT\"`]")
-    @ClassChain
+    @ExtendedFindBy(iosPredicate = "name == 'test-LOGOUT'")
     private ExtendedWebElement logoutBtn;
 
     @Override
@@ -47,12 +46,18 @@ public class HeaderPage extends HeaderPageBase {
         return initPage(getDriver(), CatalogPageBase.class);
     }
     @Override
-    public void clickOnDrawing() {
+    public DrawingPageBase clickOnDrawingBtn() {
         drawingBtn.click();
+        return initPage(getDriver(), DrawingPageBase.class);
     }
     @Override
-    public LoginPageBase clickOnLogout() {
+    public LoginPageBase clickOnLogoutBtn() {
         logoutBtn.click();
         return initPage(getDriver(), LoginPageBase.class);
+    }
+
+    @Override
+    public HeaderPageBase getHeader() {
+        return header;
     }
 }
