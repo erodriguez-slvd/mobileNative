@@ -1,21 +1,22 @@
 package com.solvd.carina.demo.mobile.gui.pages.ios;
 
+import com.solvd.carina.demo.mobile.gui.components.ios.HeaderMenu;
 import com.solvd.carina.demo.mobile.gui.pages.common.*;
 import com.zebrunner.carina.utils.factory.DeviceType;
-import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.decorator.annotations.ClassChain;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = HeaderPageBase.class)
-public class HeaderPage extends HeaderPageBase implements IMobileUtils {
-    public HeaderPage(WebDriver driver) {
+@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = MenuPageBase.class)
+public class MenuPage extends MenuPageBase {
+    public MenuPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(xpath = "//XCUIElementTypeOther[@name='headerContainer']/parent::XCUIElementTypeOther")
-    private HeaderPageBase header;
+    @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"headerContainer\"`]/XCUIElementTypeImage")
+    @ClassChain
+    private HeaderMenu header;
 
     @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"test-Cart\"`]")
     @ClassChain
@@ -57,7 +58,7 @@ public class HeaderPage extends HeaderPageBase implements IMobileUtils {
     }
 
     @Override
-    public HeaderPageBase getHeader() {
+    public HeaderMenu getHeaderMenu() {
         return header;
     }
 }

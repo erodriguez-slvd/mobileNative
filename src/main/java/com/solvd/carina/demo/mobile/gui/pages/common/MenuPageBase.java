@@ -1,11 +1,12 @@
 package com.solvd.carina.demo.mobile.gui.pages.common;
 
+import com.solvd.carina.demo.mobile.gui.components.common.HeaderMenuBase;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
-public abstract class HeaderPageBase extends AbstractPage implements IMobileUtils {
-    public HeaderPageBase(WebDriver driver) {
+public abstract class MenuPageBase extends AbstractPage implements IMobileUtils {
+    public MenuPageBase(WebDriver driver) {
         super(driver);
     }
 
@@ -14,5 +15,5 @@ public abstract class HeaderPageBase extends AbstractPage implements IMobileUtil
     public abstract CatalogPageBase clickOnAllItems();
     public abstract DrawingPageBase clickOnDrawingBtn();
     public abstract LoginPageBase clickOnLogoutBtn();
-    public abstract HeaderPageBase getHeader();
+    public abstract HeaderMenuBase getHeaderMenu();
 }

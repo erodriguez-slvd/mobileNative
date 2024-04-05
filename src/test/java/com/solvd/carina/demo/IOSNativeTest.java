@@ -19,9 +19,9 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
     }
     @Test(dependsOnMethods = "testLogin", suiteName = "Login Test")
     public void testLogout(){
-        HeaderPageBase headerPage = initPage(getDriver(), HeaderPageBase.class);
+        MenuPageBase headerPage = initPage(getDriver(), MenuPageBase.class);
         headerPage.clickOnMenuIcon();
-        LoginPageBase loginPage = headerPage.clickOnLogout();
+        LoginPageBase loginPage = headerPage.clickOnLogoutBtn();
         Assert.assertTrue(loginPage.isLoginBtnActive());
     }
     @Test(dependsOnMethods = "testLogin", suiteName = "Catalog Test")
@@ -64,8 +64,20 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
     }
     @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
     public void testContinueShoppingBtn(){
-        HeaderPageBase headerPage = initPage(getDriver(), HeaderPageBase.class);
+        MenuPageBase headerPage = initPage(getDriver(), MenuPageBase.class);
         CartPageBase cartPage = headerPage.clickOnCartIcon();
         cartPage.continueShopping();
+    }
+    @Test(dependsOnMethods = "testLogin", suiteName = "Drawing Test")
+    public void drawingAndComparePicturesTest() {
+        MenuPageBase menuPage = initPage(getDriver(), MenuPageBase.class);
+        menuPage.getHeaderMenu().isMenuBtnPresent();
+        menuPage.getHeaderMenu().clickOnMenuBtn();
+        DrawingPageBase drawingArea = menuPage.clickOnDrawingBtn();
+        Assert.assertTrue(drawingArea.isEmptyPadPresent());
+        drawingArea.drawPicture();
+        Assert.assertTrue(drawingArea.isDrawingPresent());
+        drawingArea.clickOnClearBtn();
+        Assert.assertTrue(drawingArea.isEmptyPadPresent());
     }
 }
