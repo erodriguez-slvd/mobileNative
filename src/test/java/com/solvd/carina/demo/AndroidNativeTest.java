@@ -1,7 +1,6 @@
 package com.solvd.carina.demo;
 
-import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.LoginPageBase;
+import com.solvd.carina.demo.mobile.gui.pages.common.*;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
@@ -48,5 +47,31 @@ public class AndroidNativeTest implements IAbstractTest {
         CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
         catalogPage.removeProductFromCart();
         Assert.assertTrue(catalogPage.isCartEmpty());
+    }
+    @Test(dependsOnMethods = "testLogin", suiteName = "Product Test")
+    public void testGetProductDescription(){
+        CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
+        ProductDetailPageBase productPage = catalogPage.clickOnAProduct();
+        productPage.getProductDescription();
+    }
+    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    public void testContinueShoppingBtn(){
+        MenuPageBase menuPage = initPage(getDriver(), MenuPageBase.class);
+        CartPageBase cartPage = menuPage.clickOnCartIcon();
+        CatalogPageBase catalogPage =cartPage.continueShopping();
+    }
+    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    public void testCreateAnOrder(){
+        CartPageBase cartPage = initPage(getDriver(), CartPageBase.class);
+        cartPage.createAnOrder(R.TESTDATA.get("firstName"), R.TESTDATA.get("lastName"), R.TESTDATA.get("zipCode"));
+        Assert.assertTrue(cartPage.isOrderCreated());
+    }
+    @Test(dependsOnMethods = "testLogin", suiteName = "Drawing Test")
+    public void drawingAndComparePicturesTest() {
+        MenuPageBase menuPage = initPage(getDriver(), MenuPageBase.class);
+        menuPage.clickOnMenuIcon();
+        DrawingPageBase drawingArea = menuPage.clickOnDrawingBtn();
+        drawingArea.drawPicture();
+        drawingArea.clickOnClearBtn();
     }
 }

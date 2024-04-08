@@ -33,7 +33,7 @@ public class CatalogPage extends CatalogPageBase {
     private ExtendedWebElement addToCartBtn;
     @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-REMOVE\"]/android.widget.TextView")
     private ExtendedWebElement removeFromCartBtn;
-    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Cart\"]")
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Cart\"]/android.view.ViewGroup/android.widget.TextView")
     private ExtendedWebElement cartIcon;
 
 
@@ -78,12 +78,12 @@ public class CatalogPage extends CatalogPageBase {
         removeFromCartBtn.click();
     }
     @Override
-    public boolean CartContainsProduct() {
-        return cartIcon.getAttribute("name").length() != 0;
+    public boolean cartContainsProduct() {
+        return cartIcon.getText().equals("1");
     }
     @Override
     public boolean isCartEmpty() {
-        return cartIcon.getAttribute("name") == null;
+        return cartIcon.isElementNotPresent(1L);
     }
     @Override
     public ProductDetailPageBase clickOnAProduct() {
