@@ -48,7 +48,7 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
         CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
         catalogPage.addProductToCart();
         pause(3L);
-        Assert.assertTrue(catalogPage.CartContainsProduct());
+        Assert.assertTrue(catalogPage.cartContainsProduct());
     }
     @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Catalog Test")
     public void testRemoveProductFromCart(){
@@ -67,6 +67,12 @@ public class IOSNativeTest implements IAbstractTest, IMobileUtils {
         MenuPageBase headerPage = initPage(getDriver(), MenuPageBase.class);
         CartPageBase cartPage = headerPage.clickOnCartIcon();
         cartPage.continueShopping();
+    }
+    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    public void testCreateAnOrder(){
+        CartPageBase cartPage = initPage(getDriver(), CartPageBase.class);
+        cartPage.createAnOrder(R.TESTDATA.get("firstName"), R.TESTDATA.get("lastName"), R.TESTDATA.get("zipCode"));
+        Assert.assertTrue(cartPage.isOrderCreated());
     }
     @Test(dependsOnMethods = "testLogin", suiteName = "Drawing Test")
     public void drawingAndComparePicturesTest() {

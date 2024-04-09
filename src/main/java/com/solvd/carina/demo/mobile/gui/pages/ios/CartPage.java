@@ -19,14 +19,51 @@ public class CartPage extends CartPageBase {
     public CartPage(WebDriver driver) {
         super(driver);
     }
+
+
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`name == \"test-First Name\"`]")
+    private ExtendedWebElement firstName;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`name == \"test-Last Name\"`]")
+    private ExtendedWebElement lastName;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeTextField[`name == \"test-Zip/Postal Code\"`]")
+    private ExtendedWebElement zipCode;
     @FindBy(xpath = "**/XCUIElementTypeOther[`label == \"CONTINUE SHOPPING\"`]")
     @ClassChain
     private ExtendedWebElement continueShippingBtn;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"CONTINUE\"`][2]")
+    private ExtendedWebElement continueBtn;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"CHECKOUT\"`][1]")
+    private ExtendedWebElement checkoutBtn;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == \"Payment Information:\"`]")
+    private ExtendedWebElement paymentInfo;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"FINISH\"`][1]")
+    private ExtendedWebElement finishBtn;
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeStaticText[`label == \"CHECKOUT: COMPLETE!\"`]")
+    private ExtendedWebElement successfulOrder;
 
     @Override
     public CatalogPageBase continueShopping() {
         continueShippingBtn.click();
         return initPage(getDriver(),CatalogPageBase.class);
+    }
+    @Override
+    public void createAnOrder(String name, String lastname, String zip) {
+        checkoutBtn.click();
+        completeOrderInformation(name, lastname, zip);
+        continueBtn.click();
+        LOGGER.info(paymentInfo.getText());
+        swipe(finishBtn,1);
+        finishBtn.click();
+    }
+    @Override
+    public void completeOrderInformation(String name, String lastname, String zip) {
+        firstName.type(name);
+        lastName.type(lastname);
+        zipCode.type(zip);
+    }
+    @Override
+    public boolean isOrderCreated() {
+        return successfulOrder.isElementPresent();
     }
 
 }

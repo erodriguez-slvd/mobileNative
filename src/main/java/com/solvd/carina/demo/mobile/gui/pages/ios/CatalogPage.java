@@ -68,10 +68,7 @@ public class CatalogPage extends CatalogPageBase{
     }
     @Override
     public boolean areProductSortByAscendingPrice() {
-        if ((Double.parseDouble(productPrices.get(0).getText().replace("$","")))<(Double.parseDouble(productPrices.get(1).getText().replace("$","")))){
-            return true;
-        }
-        return false;
+        return (Double.parseDouble(productPrices.get(0).getText().replace("$", ""))) < (Double.parseDouble(productPrices.get(1).getText().replace("$", "")));
     }
     @Override
     public void sortProductsByDescendingName() {
@@ -80,28 +77,19 @@ public class CatalogPage extends CatalogPageBase{
     }
     @Override
     public boolean areProductSortByDescendingName() {
-        if (productTitles.get(0).getText().compareToIgnoreCase(productTitles.get(1).getText())>0){
-            return true;
-        }
-        return false;
+        return productTitles.get(0).getText().compareToIgnoreCase(productTitles.get(1).getText()) > 0;
     }
-
     @Override
     public void addProductToCart() {
         addToCartBtn.click();
     }
-
     @Override
     public void removeProductFromCart() {
         removeFromCartBtn.click();
     }
-
     @Override
-    public boolean CartContainsProduct() {
-        if (cartIcon.getAttribute("name").length()!=0){
-            return true;
-        }
-        return false;
+    public boolean cartContainsProduct() {
+        return cartIcon.getAttribute("name").length() != 0;
     }
     @Override
     public boolean isCartEmpty(){
