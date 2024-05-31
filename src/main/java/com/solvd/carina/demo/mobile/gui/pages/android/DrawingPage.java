@@ -13,17 +13,21 @@ import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = DrawingPageBase.class)
 public class DrawingPage extends DrawingPageBase implements IMobileUtils {
+    @ExtendedFindBy(accessibilityId = "test-CLEAR")
+    private ExtendedWebElement clearBtn;
+
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-DRAWING-SCREEN\"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View")
+    private ExtendedWebElement signaturePad;
+
+    @ExtendedFindBy(image = "images/template_drawing.png")
+    private ExtendedWebElement templateDrawingImage;
+
+    @ExtendedFindBy(image = "imgages/drawingLine.png")
+    private ExtendedWebElement newDrawingImage;
+
     public DrawingPage(WebDriver driver) {
         super(driver);
     }
-    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-CLEAR\"]")
-    private ExtendedWebElement clearBtn;
-    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-DRAWING-SCREEN\"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View")
-    private ExtendedWebElement signaturePad;
-    @ExtendedFindBy(image = "images/template_drawing.png")
-    private ExtendedWebElement templateDrawingImage;
-    @ExtendedFindBy(image = "imgages/drawingLine.png")
-    private ExtendedWebElement newDrawingImage;
 
     @Override
     public void drawPicture() {
@@ -40,10 +44,12 @@ public class DrawingPage extends DrawingPageBase implements IMobileUtils {
             pixelCount += 10;
         }
     }
+
     @Override
     public void clickOnClearBtn() {
         clearBtn.click();
     }
+
     @Override
     public boolean isEmptyPadPresent() {
         setSetting(Setting.FIX_IMAGE_TEMPLATE_SCALE, true);
@@ -55,6 +61,7 @@ public class DrawingPage extends DrawingPageBase implements IMobileUtils {
         }
         return templateDrawingImage.isElementPresent();
     }
+
     @Override
     public boolean isDrawingPresent() {
         setSetting(Setting.FIX_IMAGE_TEMPLATE_SCALE, true);

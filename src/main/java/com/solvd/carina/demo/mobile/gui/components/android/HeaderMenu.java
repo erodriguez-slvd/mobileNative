@@ -10,25 +10,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class HeaderMenu extends HeaderMenuBase implements ICustomTypePageFactory {
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Menu\"]")
+    private ExtendedWebElement menuBtn;
+
+    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Cart\"]")
+    private ExtendedWebElement cartBtn;
+
     public HeaderMenu(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
-
-    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Menu\"]")
-    private ExtendedWebElement menuBtn;
-    @FindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-Cart\"]")
-    private ExtendedWebElement cartBtn;
 
     @Override
     public CartPageBase clickOnCartBtn() {
         cartBtn.click();
         return initPage(getDriver(), CartPageBase.class);
     }
+
     @Override
     public MenuPageBase clickOnMenuBtn() {
         menuBtn.click();
         return initPage(getDriver(), MenuPageBase.class);
     }
+
     @Override
     public boolean isMenuBtnPresent() {
         return menuBtn.isElementPresent();

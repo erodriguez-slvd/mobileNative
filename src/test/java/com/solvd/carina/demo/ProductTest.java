@@ -2,14 +2,14 @@ package com.solvd.carina.demo;
 
 import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
 import com.solvd.carina.demo.mobile.gui.pages.common.LoginPageBase;
-import com.solvd.carina.demo.mobile.gui.pages.common.MenuPageBase;
+import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.agent.core.annotation.TestCaseKey;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class IOSNativeLoginTest implements IAbstractTest {
+public class ProductTest implements IAbstractTest {
     @Test(suiteName = "Login Test")
     @TestCaseKey("ALPHA-147")
     public void testLogin() {
@@ -21,12 +21,11 @@ public class IOSNativeLoginTest implements IAbstractTest {
         Assert.assertTrue(catalog.isTitlePresent(), "Product Catalog Page is not opened");
     }
 
-    @Test(dependsOnMethods = "testLogin", suiteName = "Login Test")
-    @TestCaseKey("ALPHA-156")
-    public void testLogout() {
-        MenuPageBase headerPage = initPage(getDriver(), MenuPageBase.class);
-        headerPage.clickOnMenuIcon();
-        LoginPageBase loginPage = headerPage.clickOnLogoutBtn();
-        Assert.assertTrue(loginPage.isLoginBtnActive());
+    @Test(dependsOnMethods = "testLogin", suiteName = "Product Test")
+    @TestCaseKey("ALPHA-153")
+    public void testGetProductDescription() {
+        CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
+        ProductDetailPageBase productPage = catalogPage.clickOnAProduct();
+        productPage.getProductDescription();
     }
 }

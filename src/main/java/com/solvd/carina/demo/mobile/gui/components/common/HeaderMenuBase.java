@@ -16,6 +16,8 @@ public abstract class HeaderMenuBase extends AbstractUIObject {
     }
 
     public abstract CartPageBase clickOnCartBtn();
+
     public abstract MenuPageBase clickOnMenuBtn();
+
     public abstract boolean isMenuBtnPresent();
 }

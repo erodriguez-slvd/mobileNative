@@ -10,24 +10,28 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 
 public class HeaderMenu extends HeaderMenuBase implements ICustomTypePageFactory {
+    @ExtendedFindBy(iosPredicate = "name == 'test-Menu'")
+    private ExtendedWebElement menuBtn;
+
+    @ExtendedFindBy(accessibilityId = "test-Cart")
+    private ExtendedWebElement cartBtn;
+
     public HeaderMenu(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == \"test-Menu\"`]")
-    private ExtendedWebElement menuBtn;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == \"test-Cart\"`]")
-    private ExtendedWebElement cartBtn;
 
     @Override
     public CartPageBase clickOnCartBtn() {
         cartBtn.click();
         return initPage(getDriver(), CartPageBase.class);
     }
+
     @Override
     public MenuPageBase clickOnMenuBtn() {
         menuBtn.click();
         return initPage(getDriver(), MenuPageBase.class);
     }
+
     @Override
     public boolean isMenuBtnPresent() {
         return menuBtn.isElementPresent();
