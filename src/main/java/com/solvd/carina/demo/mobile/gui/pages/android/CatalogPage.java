@@ -1,6 +1,6 @@
 package com.solvd.carina.demo.mobile.gui.pages.android;
 
-import com.solvd.carina.demo.mobile.gui.components.android.ProductSorting;
+import com.solvd.carina.demo.mobile.gui.components.android.AndroidFilterComponent;
 import com.solvd.carina.demo.mobile.gui.enums.SortType;
 import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
 import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
@@ -28,7 +28,7 @@ public class CatalogPage extends CatalogPageBase {
     private List<ExtendedWebElement> productPrices;
 
     @ExtendedFindBy(accessibilityId = "Selector container")
-    private ProductSorting productSorting;
+    private AndroidFilterComponent productSorting;
 
     @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
     private ExtendedWebElement filterBtn;

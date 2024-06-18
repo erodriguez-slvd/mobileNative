@@ -1,6 +1,6 @@
 package com.solvd.carina.demo.mobile.gui.pages.ios;
 
-import com.solvd.carina.demo.mobile.gui.components.ios.ProductSorting;
+import com.solvd.carina.demo.mobile.gui.components.ios.IOSFilterComponent;
 import com.solvd.carina.demo.mobile.gui.enums.SortType;
 import com.solvd.carina.demo.mobile.gui.pages.common.CatalogPageBase;
 import com.solvd.carina.demo.mobile.gui.pages.common.ProductDetailPageBase;
@@ -33,7 +33,7 @@ public class CatalogPage extends CatalogPageBase {
     private List<ExtendedWebElement> productPrices;
 
     @ExtendedFindBy(accessibilityId = "Selector container")
-    private ProductSorting productSorting;
+    private IOSFilterComponent productSorting;
 
     @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
     private ExtendedWebElement filterBtn;
