@@ -7,19 +7,8 @@ import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class CartTest implements IAbstractTest {
-    @Test(suiteName = "Login Test")
-    @TestCaseKey("ALPHA-147")
-    public void testLogin() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
-        loginPage.typeName(R.TESTDATA.get("username"));
-        loginPage.typePassword(R.TESTDATA.get("password"));
-        Assert.assertTrue(loginPage.isLoginBtnActive());
-        CatalogPageBase catalog = loginPage.clickLoginBtn();
-        Assert.assertTrue(catalog.isTitlePresent(), "Product Catalog Page is not opened");
-    }
-
-    @Test(dependsOnMethods = "testLogin", suiteName = "Cart Test")
+public class CartTest extends BaseTest implements IAbstractTest {
+    @Test(suiteName = "Cart Test")
     @TestCaseKey("ALPHA-151")
     public void testAddProductToCart() {
         CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
@@ -28,7 +17,7 @@ public class CartTest implements IAbstractTest {
         Assert.assertTrue(catalogPage.cartContainsProduct(), "The product has not been added to the cart.");
     }
 
-    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    @Test(dependsOnMethods = "testAddProductToCart", suiteName = "Cart Test")
     @TestCaseKey("ALPHA-152")
     public void testRemoveProductFromCart() {
         CatalogPageBase catalogPage = initPage(getDriver(), CatalogPageBase.class);
@@ -36,7 +25,7 @@ public class CartTest implements IAbstractTest {
         Assert.assertTrue(catalogPage.isCartEmpty(), "The product has not been deleted from the cart.");
     }
 
-    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    @Test(dependsOnMethods = "testAddProductToCart", suiteName = "Cart Test")
     @TestCaseKey("ALPHA-154")
     public void testContinueShoppingBtn() {
         CommonPageBase commonPage = initPage(getDriver(), CommonPageBase.class);
@@ -45,7 +34,7 @@ public class CartTest implements IAbstractTest {
         Assert.assertTrue(catalogPage.isTitlePresent(), "Continue Shopping Button is not working.");
     }
 
-    @Test(dependsOnMethods = {"testLogin", "testAddProductToCart"}, suiteName = "Cart Test")
+    @Test(dependsOnMethods = "testAddProductToCart", suiteName = "Cart Test")
     @TestCaseKey("ALPHA-155")
     public void testCheckoutBtn() {
         CommonPageBase commonPage = initPage(getDriver(), CommonPageBase.class);
