@@ -8,8 +8,12 @@ public abstract class CartPageBase extends AbstractPage implements IMobileUtils 
     public CartPageBase(WebDriver driver) {
         super(driver);
     }
-    public abstract CatalogPageBase continueShopping();
-    public abstract void createAnOrder(String name, String lastname, String zip);
-    public abstract void completeOrderInformation(String firstName, String lastName, String zipCode);
-    public abstract boolean isOrderCreated();
+
+    public abstract CatalogPageBase clickOnContinueShoppingBtn();
+
+    public abstract CheckoutInformationPageBase clickOnCheckoutBtn();
+
+    public abstract boolean isProductDescriptionPresent();
+
+    public abstract boolean isProductPricePresent();
 }

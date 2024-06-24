@@ -9,20 +9,24 @@ import io.appium.java_client.Setting;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
+
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = DrawingPageBase.class)
 public class DrawingPage extends DrawingPageBase implements IMobileUtils {
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-CLEAR'`]")
+    private ExtendedWebElement clearBtn;
+
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'Signature Pad demo'`]")
+    private ExtendedWebElement signaturePad;
+
+    @ExtendedFindBy(image = "images/template_drawing.png")
+    private ExtendedWebElement templateDrawingImage;
+
+    @ExtendedFindBy(image = "imgages/drawingLine.png")
+    private ExtendedWebElement newDrawingImage;
+
     public DrawingPage(WebDriver driver) {
         super(driver);
     }
-
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'test-CLEAR'`]")
-    private ExtendedWebElement clearBtn;
-    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`name == 'Signature Pad demo'`]")
-    private ExtendedWebElement signaturePad;
-    @ExtendedFindBy(image = "images/template_drawing.png")
-    private ExtendedWebElement templateDrawingImage;
-    @ExtendedFindBy(image = "imgages/drawingLine.png")
-    private ExtendedWebElement newDrawingImage;
 
     @Override
     public void drawPicture() {

@@ -7,6 +7,7 @@ public abstract class DrawingPageBase extends AbstractPage {
     public DrawingPageBase(WebDriver driver) {
         super(driver);
     }
+
     public abstract void drawPicture();
 
     public abstract void clickOnClearBtn();
